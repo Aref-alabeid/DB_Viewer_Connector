@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "DB_Viewer_Connector": {
+      "commandName": "Project",
+      "jsWebView2Debugging": false,
+      "sqlDebugging": true
+    }
+  }
+}
