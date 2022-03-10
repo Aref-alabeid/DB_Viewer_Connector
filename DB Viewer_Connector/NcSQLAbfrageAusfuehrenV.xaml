@@ -5,15 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DB_Viewer_Connector"
         mc:Ignorable="d"
-        Title="SQL Abfrage ausfuehren" Height="414" Width="800" Icon="/PayJoeLogo2.png">
+        Title="SQL Abfrage ausfuehren" Height="489" Width="800" Icon="/PayJoeLogo2.png">
     <Grid>
-        <Grid Height="378" Margin="10,0,10,0" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
-            <DataGrid Name="dBData" ItemsSource="{Binding DBData}" Margin="10,39,10,175"/>
-            <TextBox Text="{Binding Path= SQLAbfrage}" Height="86" Margin="10,208,10,0"  TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Button Content="SQL-Abfrage ausführen" Command="{Binding SQLAbfrageAusfuehrenCommand}"  HorizontalAlignment="Left" Margin="10,314,0,36" Width="151"/>
-            <Button Content="Schließen" HorizontalAlignment="Left" Margin="175,314,0,36" Width="151" Click="Button_Click" />
-            <Label x:Name="lblFirma" Content="Mandant auswählen:" HorizontalAlignment="Left" Margin="10,5,0,344" Width="124"/>
-            <ComboBox x:Name="cbFirma" ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" Margin="134,8,455,346" />
+        <Grid Margin="10,10,10,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+            <DataGrid Name="dBData" ItemsSource="{Binding DBData}" Margin="10,39,10,254"/>
+            <ComboBox IsEditable="True" ItemsSource="{Binding SQLAbfrageSchablone}" Text="{Binding SQLAbfrageText}" SelectedItem="{Binding mSQLAbfrageSchablone}" Margin="10,249,10,98" />
+            <DatePicker Visibility="Hidden" SelectedDate="{Binding AbrufDatum}" Margin="190,214,10,0" Height="30" VerticalAlignment="Top"/>
+            <ListBox Visibility="Hidden" ItemsSource="{Binding OrdersTyps}" SelectedItem="{Binding SelectedOrdersTyp}" Height="83" Margin="190,249,10,0"  VerticalAlignment="Top">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <ListBoxItem IsSelected="{Binding IsChecked}">
+                            <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Bezeichnung}" />
+                        </ListBoxItem>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Button Content="SQL-Abfrage ausführen" Command="{Binding SQLAbfrageAusfuehrenCommand}"  HorizontalAlignment="Left" Margin="10,0,0,36" Width="151" Height="37" VerticalAlignment="Bottom"/>
+            <Button Content="Schließen" HorizontalAlignment="Left" Margin="175,0,0,36" Width="151" Click="Button_Click" Height="37" VerticalAlignment="Bottom" />
+            <Label x:Name="lblFirma" Content="Mandant auswählen:" HorizontalAlignment="Left" Margin="10,5,0,0" Width="124" Height="29" VerticalAlignment="Top"/>
+            <ComboBox x:Name="cbFirma" ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" Margin="134,8,0,0" HorizontalAlignment="Left" Width="191" Height="26" VerticalAlignment="Top" />
+            <Label x:Name="lblTabelle" Content="Tabelle auswählen:" HorizontalAlignment="Left" Margin="464,6,0,0" Width="108" Height="28" VerticalAlignment="Top"/>
+            <ComboBox x:Name="cbTabelle" ItemsSource="{Binding TabellenNamen}" SelectedItem="{Binding SelectedTabelle}" Margin="577,8,12,0" Height="26" VerticalAlignment="Top" />
+            <Label Visibility="Hidden" x:Name="lblFirma_Copy" Content="Abruf Datum:" HorizontalAlignment="Left" Margin="10,216,0,0" Width="100" Height="28" VerticalAlignment="Top"/>
+            <Label  Visibility="Hidden" x:Name="lblFirma_Copy1" Content="Vorgangsarten auswählen:" HorizontalAlignment="Left" Margin="10,274,0,0" Width="165" Height="39" VerticalAlignment="Top"/>
+            <Label x:Name="lblFirma_Copy2" Content="SQL-Abfrage manuell eingeben:" Margin="10,216,595,219"/>
         </Grid>
 
     </Grid>

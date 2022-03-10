@@ -105,7 +105,7 @@ namespace DB_Viewer_Connector
                     || string.IsNullOrWhiteSpace(Benutzer) == true
                     || string.IsNullOrWhiteSpace(Passwort) == true)
                     {
-                        return false;
+                        return true;
                     }
                     else
                     {
@@ -119,9 +119,9 @@ namespace DB_Viewer_Connector
         {
             try
             {
-                mMicrotechApplication.Init(Firmenname, "", Benutzer, Passwort);
+                mMicrotechApplication.Init("Netconnections gmbh"/*Firmenname*/, "",  "shirche"/*Benutzer*/, "123"/*Passwort*/);
                 
-                NcSQLAbfrageAusfuehrenVM ncSQLAbfrageAusfuehrenVM = new NcSQLAbfrageAusfuehrenVM(Firmenname, Benutzer, Passwort);
+                NcSQLAbfrageAusfuehrenVM ncSQLAbfrageAusfuehrenVM = new NcSQLAbfrageAusfuehrenVM("Netconnections gmbh"/*Firmenname*/, "shirche"/*Benutzer*/, "123"/*Passwort*//*Firmenname, Benutzer, Passwort*/);
                 NcSQLAbfrageAusfuehrenV ncSQLAbfrageAusfuehrenV = new NcSQLAbfrageAusfuehrenV();
                 ncSQLAbfrageAusfuehrenV.DataContext = ncSQLAbfrageAusfuehrenVM;
                 ncSQLAbfrageAusfuehrenV.Show();
@@ -142,6 +142,17 @@ namespace DB_Viewer_Connector
                 ModulParameter[pParameterKey] = pParameterValue;
         }
 
+        public void VerbindungBeenden()
+        {
+            try
+            {
+                mMicrotechApplication.LogOff();
+            }
+            catch (Exception pEx)
+            {
+                throw pEx;
+            }
+        }
 
         //internal void SaveModulesToDB()
         //{
