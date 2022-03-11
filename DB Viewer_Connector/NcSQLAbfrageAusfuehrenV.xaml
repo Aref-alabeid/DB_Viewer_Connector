@@ -10,18 +10,11 @@
 
         <Grid Margin="10,10,10,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
             <Grid.ColumnDefinitions>
-                <!--<ColumnDefinition Width="0"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="30"/>-->
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <!--<RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>-->
             </Grid.RowDefinitions>
             <DataGrid Name="dBData" ItemsSource="{Binding DBData}" Margin="0,39,0,153" />
-            <ComboBox IsEditable="True" ItemsSource="{Binding SQLAbfrageSchablone}" Text="{Binding SQLAbfrageText}" SelectedItem="{Binding mSQLAbfrageSchablone}" Margin="10,0,12,59" Height="33" VerticalAlignment="Bottom"  />
+            <ComboBox IsEditable="True" ItemsSource="{Binding SQLAbfrageSchablone}" Text="{Binding SQLAbfrageText}"  SelectedItem="{Binding mSQLAbfrageSchablone}" Margin="10,0,12,59" Height="33" VerticalAlignment="Bottom"  />
             <DatePicker Visibility="Hidden" SelectedDate="{Binding AbrufDatum}" Margin="190,310,560,0" Height="30" VerticalAlignment="Top" Grid.Row="2"/>
             <!--<ListBox Visibility="Hidden" ItemsSource="{Binding OrdersTyps}" SelectedItem="{Binding SelectedOrdersTyp}" Height="83" Margin="190,314,560,0"  VerticalAlignment="Top" Grid.Row="2">
 

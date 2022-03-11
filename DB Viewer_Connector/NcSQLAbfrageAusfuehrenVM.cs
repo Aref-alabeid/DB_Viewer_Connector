@@ -36,7 +36,7 @@ namespace DB_Viewer_Connector
         #endregion
 
         #region Properties
-        private string mSQLAbfrageText;
+        private string mSQLAbfrageText = null;
 
         public string SQLAbfrageText
         {
@@ -103,7 +103,6 @@ namespace DB_Viewer_Connector
 
         public NcSQLAbfrageAusfuehrenVM(string pFirmaName, string pBenutzer, string pPasswort)
         {
-
             OrdersTyps = new List<OrdersTyps>();
             DBData = new DataView();
             mDispatcherObject = Dispatcher.CurrentDispatcher;
