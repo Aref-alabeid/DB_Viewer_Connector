@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Application = BpNT.Application;
 
+
 namespace DB_Viewer_Connector
 {
     public class NcLoginVM : NcBindableBase
@@ -119,12 +120,13 @@ namespace DB_Viewer_Connector
         {
             try
             {
-                mMicrotechApplication.Init("Netconnections gmbh"/*Firmenname*/, "",  "shirche"/*Benutzer*/, "123"/*Passwort*/);
+                mMicrotechApplication.Init(Firmenname, "",  Benutzer, Passwort);
                 
-                NcSQLAbfrageAusfuehrenVM ncSQLAbfrageAusfuehrenVM = new NcSQLAbfrageAusfuehrenVM("Netconnections gmbh"/*Firmenname*/, "shirche"/*Benutzer*/, "123"/*Passwort*//*Firmenname, Benutzer, Passwort*/);
+                NcSQLAbfrageAusfuehrenVM ncSQLAbfrageAusfuehrenVM = new NcSQLAbfrageAusfuehrenVM(Firmenname, Benutzer, Passwort);
                 NcSQLAbfrageAusfuehrenV ncSQLAbfrageAusfuehrenV = new NcSQLAbfrageAusfuehrenV();
                 ncSQLAbfrageAusfuehrenV.DataContext = ncSQLAbfrageAusfuehrenVM;
                 ncSQLAbfrageAusfuehrenV.Show();
+                
             }
             catch (Exception pEx)
             {
@@ -207,9 +209,6 @@ namespace DB_Viewer_Connector
         //        }
         //    }
         //}
-
-
-
 
         #endregion
 

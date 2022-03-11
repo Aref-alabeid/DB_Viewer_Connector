@@ -23,7 +23,7 @@ namespace DB_Viewer_Connector
 
         #region Member
 
-        string mSQLAbfrageSchablone = "Dat >= '30.12.2022' and Art=70 or Art=71 or Art=90";
+        string mSQLAbfrageSchablone = "Dat >= '01.03.2022' and Art=70 or Art=71 or Art=90";
         AutoDataSetInfos tmpTabellenNamen = null;
         Application mMicrotechApplication = null;
         DataView mDBData = null;
@@ -103,13 +103,14 @@ namespace DB_Viewer_Connector
 
         public NcSQLAbfrageAusfuehrenVM(string pFirmaName, string pBenutzer, string pPasswort)
         {
+
             OrdersTyps = new List<OrdersTyps>();
             DBData = new DataView();
             mDispatcherObject = Dispatcher.CurrentDispatcher;
             Companies = new ObservableCollection<NcMicrotechCompany>();
             SQLAbfrageSchablone = new ObservableCollection<string>();
-            SQLAbfrageSchablone.Add("Dat >= '30.12.2022'"); SQLAbfrageSchablone.Add("Art=70 or Art=71 or Art=90");
-            SQLAbfrageSchablone.Add("Dat >= '30.12.2022' and Art=70 or Art=71 or Art=90");
+            SQLAbfrageSchablone.Add("Dat >= '01.03.2022'"); SQLAbfrageSchablone.Add("Art=70 or Art=71 or Art=90");
+            SQLAbfrageSchablone.Add("Dat >= '01.03.2022' and Art=70 or Art=71 or Art=90");
             SQLAbfrageSchablone.Add("Art = '10' OR Art = '15' OR Art = '20' OR Art = '30' OR Art = '35' OR Art = '36' OR Art = '50' OR Art = '70' " +
                 "OR Art = '71' OR Art = '60' OR Art = '90' OR Art = '72' OR Art = '81' OR Art = '79' OR Art = '80' OR Art = '85' OR Art = '91' " +
                 "OR Art = '40' OR Art = '41' OR Art = '92' OR Art = '95' OR Art = '101' OR Art = '102' OR Art = '103' OR Art = '104' OR Art = '105' " +
@@ -133,7 +134,7 @@ namespace DB_Viewer_Connector
             {
                 TabellenNamen.Add(tmpTabellenNamen[i].Name);
             }
-
+            System.Windows.Application.Current.MainWindow.Visibility = Visibility.Hidden;
         }
 
         #endregion

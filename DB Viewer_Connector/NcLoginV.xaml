@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:DB_Viewer_Connector"
         mc:Ignorable="d"
         Title="Microtech Intialisieren"
+        Icon="PayJoeLogo2.png"
         d:DesignHeight="360" d:DesignWidth="525" MaxHeight="360" MaxWidth="525">
-   
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3"/>
@@ -49,8 +50,8 @@
         <TextBox Grid.Column="2" Grid.Row="12" Text="{Binding Path= Passwort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Button Grid.Row="16" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                Padding="3" Command="{Binding SetUserLoginDataCommand}" Click="Button_Click_1">weiter</Button>
-
+                Padding="3" Command="{Binding SetUserLoginDataCommand}" >weiter</Button>
+        
     </Grid>
 
 </Window>

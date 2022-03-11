@@ -47,6 +47,12 @@ namespace DB_Viewer_Connector
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
+            System.Windows.Application.Current.MainWindow.Close();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            System.Windows.Application.Current.MainWindow.Close();
         }
     }
 }

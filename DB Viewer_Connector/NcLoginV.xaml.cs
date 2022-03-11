@@ -27,9 +27,9 @@ namespace DB_Viewer_Connector
 
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        public void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
     }
 }
