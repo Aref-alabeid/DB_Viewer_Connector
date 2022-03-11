@@ -32,23 +32,22 @@ namespace DB_Viewer_Connector
         Dispatcher mDispatcherObject = null;
         string mSQLAbfrage = "Dat >= 'dd.MM.yyyy' and Art=70 or Art=71 or Art=90";
         private DateTime mAbrufDatum = DateTime.Now;
+        private string mSQLAbfrageText = null;
+        private string mSelectedAnzahl;
 
         #endregion
 
         #region Properties
-        private string mSQLAbfrageText = null;
-
         public string SQLAbfrageText
         {
             get { return mSQLAbfrageText; }
             set { mSQLAbfrageText = value; OnPropertyChanged("SQLAbfrageText"); }
         }
-
+        public List<string> EintraegeAnzahl { get; set; }
         public ObservableCollection<NcMicrotechCompany> Companies { get; set; }
         public ObservableCollection<string> SQLAbfrageSchablone { get; set; }
         public List<string> TabellenNamen { get; set; }
         public List<OrdersTyps> OrdersTyps { get; set; }
-
         public DateTime AbrufDatum
         {
             get { return mAbrufDatum; }
@@ -97,12 +96,22 @@ namespace DB_Viewer_Connector
                 SetProperty(ref mSelectedCompany, value);
             }
         }
+        public string SelectedAnzahl
+        {
+            get { return mSelectedAnzahl; }
+            set { mSelectedAnzahl = value; OnPropertyChanged("SelectedAnzahl"); }
+        }
+
+
         #endregion
 
         #region Costructor
 
         public NcSQLAbfrageAusfuehrenVM(string pFirmaName, string pBenutzer, string pPasswort)
         {
+
+            EintraegeAnzahl = new List<string>();
+            EintraegeAnzahl.Add("Alle");EintraegeAnzahl.Add("500");
             OrdersTyps = new List<OrdersTyps>();
             DBData = new DataView();
             mDispatcherObject = Dispatcher.CurrentDispatcher;
@@ -215,7 +224,7 @@ namespace DB_Viewer_Connector
                 //}
                 //tmpVorgangsArtenFilter = tmpVorgangsArtenFilter.Substring(0, tmpVorgangsArtenFilter.Length - 2);
 
-
+               
                 if (SQLAbfrageText != "" && SQLAbfrageText != null)
                 {
                     tmpVorgangADS.Filter = SQLAbfrageText;
@@ -255,7 +264,14 @@ namespace DB_Viewer_Connector
                     FelderWerteList.Add(FeldWert);
                 }
                 dt.Rows.Add(row);
-
+                if (dt.Rows.Count == 500)
+                {
+                    if (SelectedAnzahl == "500")
+                    {
+                        DBData = dt.DefaultView;
+                        return;
+                    }
+                }
                 tmpVorgangADS.Next();
             }
 

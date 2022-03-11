@@ -32,8 +32,7 @@ namespace DB_Viewer_Connector
 
         #region Properties
 
-
-
+        
 
         public Application MicrotechApplication
         {
