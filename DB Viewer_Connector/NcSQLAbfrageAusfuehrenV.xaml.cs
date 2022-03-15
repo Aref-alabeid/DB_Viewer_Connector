@@ -36,7 +36,7 @@ namespace DB_Viewer_Connector
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
         }
 
-        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (!e.PropertyName.Equals("DBData"))
                 return;

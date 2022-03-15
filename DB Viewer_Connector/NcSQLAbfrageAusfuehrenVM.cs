@@ -23,47 +23,41 @@ namespace DB_Viewer_Connector
 
         #region Member
 
-        string mSQLAbfrageSchablone = "Dat >= '01.03.2022' and Art=70 or Art=71 or Art=90";
+        string mAbfrageSchablone = "Dat >= '01.03.2022' and Art=70 or Art=71 or Art=90";
         AutoDataSetInfos tmpTabellenNamen = null;
         Application mMicrotechApplication = null;
         DataView mDBData = null;
         NcMicrotechCompany mSelectedCompany = null;
         string mSelectedTabelle = "Vorgang";
         Dispatcher mDispatcherObject = null;
-        string mSQLAbfrage = "Dat >= 'dd.MM.yyyy' and Art=70 or Art=71 or Art=90";
+        string mAbfrage = "Dat >= 'dd.MM.yyyy' and Art=70 or Art=71 or Art=90";
         private DateTime mAbrufDatum = DateTime.Now;
-        private string mSQLAbfrageText = null;
-        private string mSelectedAnzahl;
+        private string mAbfrageText = null;
+        private string mSelectedAnzahl = "Alle";
 
         #endregion
 
         #region Properties
-        public string SQLAbfrageText
-        {
-            get { return mSQLAbfrageText; }
-            set { mSQLAbfrageText = value; OnPropertyChanged("SQLAbfrageText"); }
-        }
-        public List<string> EintraegeAnzahl { get; set; }
+
         public ObservableCollection<NcMicrotechCompany> Companies { get; set; }
-        public ObservableCollection<string> SQLAbfrageSchablone { get; set; }
+        public ObservableCollection<string> AbfrageSchablone { get; set; }
+        public List<string> EintraegeAnzahl { get; set; }
         public List<string> TabellenNamen { get; set; }
         public List<OrdersTyps> OrdersTyps { get; set; }
+        public string AbfrageText
+        {
+            get { return mAbfrageText; }
+            set { mAbfrageText = value; OnPropertyChanged("SQLAbfrageText"); }
+        }
         public DateTime AbrufDatum
         {
             get { return mAbrufDatum; }
             set { mAbrufDatum = value; OnPropertyChanged("AbrufDatum"); }
         }
-
-        //public string SelectedSQLAbfragenSchablone
-        //{
-        //    get { return mSelectedSQLAbfrageSchablone; }
-        //    set { mSelectedSQLAbfrageSchablone = value; OnPropertyChanged("SelectedSQLAbfragenSchablone"); }
-        //}
-
-        public string SQLAbfrage
+        public string Abfrage
         {
-            get { return mSQLAbfrage; }
-            set { mSQLAbfrage = value; OnPropertyChanged("SQLAbfrage"); }
+            get { return mAbfrage; }
+            set { mAbfrage = value; OnPropertyChanged("SQLAbfrage"); }
         }
         public DataView DBData
         {
@@ -101,7 +95,17 @@ namespace DB_Viewer_Connector
             get { return mSelectedAnzahl; }
             set { mSelectedAnzahl = value; OnPropertyChanged("SelectedAnzahl"); }
         }
-
+        public Application MicrotechApplication
+        {
+            get
+            {
+                return mMicrotechApplication;
+            }
+            set
+            {
+                mMicrotechApplication = value;
+            }
+        }
 
         #endregion
 
@@ -111,15 +115,15 @@ namespace DB_Viewer_Connector
         {
 
             EintraegeAnzahl = new List<string>();
-            EintraegeAnzahl.Add("Alle");EintraegeAnzahl.Add("500");
+            EintraegeAnzahl.Add("Alle");EintraegeAnzahl.Add("500"); EintraegeAnzahl.Add("50");
             OrdersTyps = new List<OrdersTyps>();
             DBData = new DataView();
             mDispatcherObject = Dispatcher.CurrentDispatcher;
             Companies = new ObservableCollection<NcMicrotechCompany>();
-            SQLAbfrageSchablone = new ObservableCollection<string>();
-            SQLAbfrageSchablone.Add("Dat >= '01.03.2022'"); SQLAbfrageSchablone.Add("Art=70 or Art=71 or Art=90");
-            SQLAbfrageSchablone.Add("Dat >= '01.03.2022' and Art=70 or Art=71 or Art=90");
-            SQLAbfrageSchablone.Add("Art = '10' OR Art = '15' OR Art = '20' OR Art = '30' OR Art = '35' OR Art = '36' OR Art = '50' OR Art = '70' " +
+            AbfrageSchablone = new ObservableCollection<string>();
+            AbfrageSchablone.Add("Dat >= '01.03.2022'"); AbfrageSchablone.Add("Art=70 or Art=71 or Art=90");
+            AbfrageSchablone.Add("Dat >= '01.03.2022' and Art=70 or Art=71 or Art=90");
+            AbfrageSchablone.Add("Art = '10' OR Art = '15' OR Art = '20' OR Art = '30' OR Art = '35' OR Art = '36' OR Art = '50' OR Art = '70' " +
                 "OR Art = '71' OR Art = '60' OR Art = '90' OR Art = '72' OR Art = '81' OR Art = '79' OR Art = '80' OR Art = '85' OR Art = '91' " +
                 "OR Art = '40' OR Art = '41' OR Art = '92' OR Art = '95' OR Art = '101' OR Art = '102' OR Art = '103' OR Art = '104' OR Art = '105' " +
                 "OR Art = '106' OR Art = '107' OR Art = '108' OR Art = '109' OR Art = '110' ");
@@ -127,7 +131,7 @@ namespace DB_Viewer_Connector
             mMicrotechApplication = new Application();
             GetCompanies(pFirmaName, pBenutzer, pPasswort);
             
-            SQLAbfrageAusfuehrenCommand = new NcCommand(async () => { GetDataFromMicrotechDB(); },
+            AbfrageAusfuehrenCommand = new NcCommand(async () => { GetDataFromMicrotechDB(); },
                 () =>
                 {
                     return true;
@@ -147,7 +151,9 @@ namespace DB_Viewer_Connector
 
         #endregion
 
+        public ICommand AbfrageAusfuehrenCommand { get; set; }
 
+        #region Methods
 
         void GetDatFromDatabase()
         {
@@ -156,7 +162,7 @@ namespace DB_Viewer_Connector
                 String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TESTDataBase;Integrated Security=True;Connect Timeout=30;Encrypt=False;" +
                         "TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                 SqlConnection con = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand(SQLAbfrage, con);
+                SqlCommand cmd = new SqlCommand(Abfrage, con);
                 con.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -167,26 +173,10 @@ namespace DB_Viewer_Connector
             }
             catch (Exception)
             {
-                SQLAbfrage = "Bitte eine gültige SQL-Abfrage ausführen";
+                Abfrage = "Bitte eine gültige Abfrage ausführen";
 
             }
         }
-
-        public Application MicrotechApplication
-        {
-            get
-            {
-                return mMicrotechApplication;
-            }
-            set
-            {
-                mMicrotechApplication = value;
-            }
-        }
-       
-        public ICommand SQLAbfrageAusfuehrenCommand { get; set; }
-
-        #region Methods
 
         public List<OrdersTyps> GetOrdersTyps()
         {
@@ -208,6 +198,7 @@ namespace DB_Viewer_Connector
             }
             return tmpOrdersTyps;
         }
+        
         async void GetDataFromMicrotechDB()
         {
            
@@ -215,26 +206,11 @@ namespace DB_Viewer_Connector
 
             try
             {
-                //List<int> VorgaengeArtenNr = new List<int>();
-                //VorgaengeArtenNr = OrdersTyps?.Where(i => i.IsChecked == true).Select(i => Convert.ToInt32(i.Nr)).ToList();
-                //string tmpVorgangsArtenFilter = null;
-                //foreach (var item in VorgaengeArtenNr)
-                //{
-                //    tmpVorgangsArtenFilter = $"{tmpVorgangsArtenFilter} Art = '{item}' OR";
-                //}
-                //tmpVorgangsArtenFilter = tmpVorgangsArtenFilter.Substring(0, tmpVorgangsArtenFilter.Length - 2);
-
-               
-                if (SQLAbfrageText != "" && SQLAbfrageText != null)
+                if (AbfrageText != "" && AbfrageText != null)
                 {
-                    tmpVorgangADS.Filter = SQLAbfrageText;
+                    tmpVorgangADS.Filter = AbfrageText;
                     tmpVorgangADS.Filtered = true; 
                 }
-                //else
-                //{
-                //    tmpVorgangADS.Filter = $"Dat >= '{AbrufDatum.AddDays(-14).ToString("dd.MM.yyyy")}' AND({ tmpVorgangsArtenFilter})"; ;
-                //    tmpVorgangADS.Filtered = true;
-                //}
             }
             catch (Exception)
             {
@@ -264,8 +240,13 @@ namespace DB_Viewer_Connector
                     FelderWerteList.Add(FeldWert);
                 }
                 dt.Rows.Add(row);
-                if (dt.Rows.Count == 500)
+                if (dt.Rows.Count == 500 || dt.Rows.Count == 50)
                 {
+                    if (SelectedAnzahl == "50")
+                    {
+                        DBData = dt.DefaultView;
+                        return;
+                    }
                     if (SelectedAnzahl == "500")
                     {
                         DBData = dt.DefaultView;

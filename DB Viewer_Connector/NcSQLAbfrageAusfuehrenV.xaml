@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DB_Viewer_Connector"
         mc:Ignorable="d"
-        Title="SQL Abfrage ausfuehren" Height="489" Width="800" MinHeight="489" MinWidth="700" Icon="/PayJoeLogo2.png" Closing="Window_Closing">
+        Title="Abfrage ausfuehren" Height="489" Width="800" MinHeight="489" MinWidth="700" Icon="/PayJoeLogo2.png" Closing="Window_Closing">
     <Grid>
 
         <Grid Margin="10,10,10,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
@@ -14,7 +14,7 @@
             <Grid.RowDefinitions>
             </Grid.RowDefinitions>
             <DataGrid Name="dBData" ItemsSource="{Binding DBData}" Margin="0,39,0,174" />
-            <ComboBox IsEditable="True" ItemsSource="{Binding SQLAbfrageSchablone}" Text="{Binding SQLAbfrageText}"  SelectedItem="{Binding mSQLAbfrageSchablone}" Margin="10,0,12,59" Height="25" VerticalAlignment="Bottom"  />
+            <ComboBox IsEditable="True" ItemsSource="{Binding AbfrageSchablone}" Text="{Binding AbfrageText}"  SelectedItem="{Binding mAbfrageSchablone}" Margin="10,0,12,59" Height="25" VerticalAlignment="Bottom"  />
             <DatePicker Visibility="Hidden" SelectedDate="{Binding AbrufDatum}" Margin="190,310,560,0" Height="30" VerticalAlignment="Top" Grid.Row="2"/>
             <!--<ListBox Visibility="Hidden" ItemsSource="{Binding OrdersTyps}" SelectedItem="{Binding SelectedOrdersTyp}" Height="83" Margin="190,314,560,0"  VerticalAlignment="Top" Grid.Row="2">
 
@@ -27,7 +27,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>-->
 
-            <Button Content="SQL-Abfrage ausführen" Command="{Binding SQLAbfrageAusfuehrenCommand}"  HorizontalAlignment="Left" Margin="10,0,0,10" Width="151" Height="34" VerticalAlignment="Bottom"/>
+            <Button Content="Abfrage ausführen" Command="{Binding AbfrageAusfuehrenCommand}"  HorizontalAlignment="Left" Margin="10,0,0,10" Width="151" Height="34" VerticalAlignment="Bottom"/>
             <Button Content="Schließen" HorizontalAlignment="Left" Margin="175,0,0,10" Width="151" Click="Button_Click" Height="34" VerticalAlignment="Bottom" />
             <Label Grid.Row="1" x:Name="lblFirma" Content="Mandant auswählen:" HorizontalAlignment="Left" Margin="10,5,0,0" Width="124" Height="29" VerticalAlignment="Top"/>
             <ComboBox Grid.Row="1" x:Name="cbFirma" ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" Margin="134,8,0,0" HorizontalAlignment="Left" Width="191" Height="26" VerticalAlignment="Top" />
@@ -35,7 +35,7 @@
             <ComboBox Grid.Row="1" x:Name="cbTabelle" ItemsSource="{Binding TabellenNamen}" SelectedItem="{Binding SelectedTabelle}" Margin="0,8,4,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right" Width="203" />
             <!--<Label Visibility="Hidden" x:Name="lblFirma_Copy" Content="Abruf Datum:" HorizontalAlignment="Left" Margin="10,281,0,0" Width="100" Height="28" VerticalAlignment="Top" Grid.Row="2"/>
             <Label  Visibility="Hidden" x:Name="lblFirma_Copy1" Content="Vorgangsarten auswählen:" HorizontalAlignment="Left" Margin="10,257,0,0" Width="165" Height="39" VerticalAlignment="Top" Grid.Row="2"/>-->
-            <Label x:Name="lblAbfrageEingeben" Content="SQL-Abfrage manuell eingeben:" Margin="10,0,0,100" HorizontalAlignment="Left" Width="195" Height="28" VerticalAlignment="Bottom"/>
+            <Label x:Name="lblAbfrageEingeben" Content="Abfrage manuell eingeben:" Margin="10,0,0,100" HorizontalAlignment="Left" Width="195" Height="28" VerticalAlignment="Bottom"/>
             <ComboBox x:Name="cbEintraegeAnzahl" ItemsSource="{Binding EintraegeAnzahl}" SelectedItem="{Binding SelectedAnzahl}" Margin="114,0,0,139" HorizontalAlignment="Left" Width="50" Height="25" VerticalAlignment="Bottom" />
             <Label x:Name="lblEintraegeAnzahl" Content="Einträge-Anzahl:" Margin="10,0,0,138" HorizontalAlignment="Left" Width="100" Height="28" VerticalAlignment="Bottom"/>
         </Grid>
