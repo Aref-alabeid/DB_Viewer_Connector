@@ -35,7 +35,7 @@
             <ComboBox Grid.Row="1" x:Name="cbTabelle" ItemsSource="{Binding TabellenNamen}" SelectedItem="{Binding SelectedTabelle}" Margin="0,8,4,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Right" Width="203" />
             <!--<Label Visibility="Hidden" x:Name="lblFirma_Copy" Content="Abruf Datum:" HorizontalAlignment="Left" Margin="10,281,0,0" Width="100" Height="28" VerticalAlignment="Top" Grid.Row="2"/>
             <Label  Visibility="Hidden" x:Name="lblFirma_Copy1" Content="Vorgangsarten auswählen:" HorizontalAlignment="Left" Margin="10,257,0,0" Width="165" Height="39" VerticalAlignment="Top" Grid.Row="2"/>-->
-            <Label x:Name="lblAbfrageEingeben" Content="Abfrage manuell eingeben:" Margin="10,0,0,100" HorizontalAlignment="Left" Width="195" Height="28" VerticalAlignment="Bottom"/>
+            <Label x:Name="lblAbfrageEingeben" Content="Abfrage manuell eingeben:" Margin="10,0,0,90" HorizontalAlignment="Left" Width="195" Height="28" VerticalAlignment="Bottom"/>
             <ComboBox x:Name="cbEintraegeAnzahl" ItemsSource="{Binding EintraegeAnzahl}" SelectedItem="{Binding SelectedAnzahl}" Margin="114,0,0,139" HorizontalAlignment="Left" Width="50" Height="25" VerticalAlignment="Bottom" />
             <Label x:Name="lblEintraegeAnzahl" Content="Einträge-Anzahl:" Margin="10,0,0,138" HorizontalAlignment="Left" Width="100" Height="28" VerticalAlignment="Bottom"/>
         </Grid>

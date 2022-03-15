@@ -33,7 +33,7 @@ namespace DB_Viewer_Connector
         string mAbfrage = "Dat >= 'dd.MM.yyyy' and Art=70 or Art=71 or Art=90";
         private DateTime mAbrufDatum = DateTime.Now;
         private string mAbfrageText = null;
-        private string mSelectedAnzahl = "Alle";
+        private string mSelectedAnzahl = "50";
 
         #endregion
 
@@ -228,8 +228,12 @@ namespace DB_Viewer_Connector
                 FelderNamenList.Add(FeldName);
                 dt.Columns.Add(FeldName);
             }
-
+            int tmpSelectedAnzahl = 0;
+            if (SelectedAnzahl == "50" || SelectedAnzahl =="500")
+                tmpSelectedAnzahl = Convert.ToInt32(SelectedAnzahl);
+           
             tmpVorgangADS.First();
+
             while (tmpVorgangADS.Eof == false)
             {
                 var row = dt.NewRow();
@@ -240,19 +244,12 @@ namespace DB_Viewer_Connector
                     FelderWerteList.Add(FeldWert);
                 }
                 dt.Rows.Add(row);
-                if (dt.Rows.Count == 500 || dt.Rows.Count == 50)
+                if (dt.Rows.Count == tmpSelectedAnzahl)
                 {
-                    if (SelectedAnzahl == "50")
-                    {
-                        DBData = dt.DefaultView;
-                        return;
-                    }
-                    if (SelectedAnzahl == "500")
-                    {
-                        DBData = dt.DefaultView;
-                        return;
-                    }
-                }
+                    DBData = dt.DefaultView;
+                    return;
+                }   
+                
                 tmpVorgangADS.Next();
             }
 
