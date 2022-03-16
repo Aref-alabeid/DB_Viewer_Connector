@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <Reference Include="Interop.BpNT">
-      <HintPath>..\..\..\..\OneDrive - NetConnections GmbH\Dokumente\Entwicklung\Interop.BpNT.dll</HintPath>
+      <HintPath>..\Interop.BpNT.dll</HintPath>
     </Reference>
   </ItemGroup>
 
